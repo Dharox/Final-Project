@@ -18,20 +18,10 @@ Employee_C::Employee_C()
 	gender = 'N';
 }
 
-Employee_C::Employee_C(char fullName[], int nameSize, int employeeID, float salary, char gender)
-{
-	this->fullName[nameSize] = fullName[nameSize];
-	this->employeeID = employeeID;
-	this->salary = salary;
-	this->gender = gender;
-
-	totalSalaries += salary;
-}
-
 // Getters
-char Employee_C::Get_FullName(int nameSize) const
+char* Employee_C::Get_FullName() const
 {
-	return fullName[nameSize];
+	return (char*) &fullName[0];
 }
 
 int Employee_C::Get_EmployeeID() const
@@ -55,9 +45,20 @@ double Employee_C::Get_TotalSalaries() const
 }
 
 // Setters
-void Employee_C::Set_FullName(char fullName[], int nameSize)
+void Employee_C::Set_FullName(char fullName[])
 {
-	this->fullName[SIZE] = fullName[SIZE];
+	/*
+	this->fullName[nameSize] = fullName[nameSize];
+	*/ 
+
+	int index = 0;
+	while (fullName[index] != '\0' && index < SIZE - 1)
+	{
+		this->fullName[index] = fullName[index];
+		index++;
+	}
+
+	this->fullName[index] = '\0';
 }
 
 void Employee_C::Set_EmployeeID(int employeeID)
@@ -72,7 +73,6 @@ void Employee_C::Set_Gender(char gender)
 
 void Employee_C::Set_Salary(float salary)
 {
-	totalSalaries -= salary;
 	this->salary = salary;
 	totalSalaries += salary;
 }
